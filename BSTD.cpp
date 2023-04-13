@@ -81,6 +81,7 @@ public:
       bool r = true;
       node* traverse = root;
       while (r == true) {
+	comparisonCounter++;
 	if (t > traverse->data) {
 	  if (traverse->rightChild == nullptr) {
 	    traverse->rightChild = new node(t);
@@ -238,9 +239,20 @@ public:
       cout << "____" << endl;
     }
   }
+  void shuffle(vector<int> *swap, int s) {
+    for (int i = 0; i < s; i++) {
+      srand((unsigned) time(NULL));
+      int r1 = rand() % (swap.size());
+      int r2 = rand() % (swap.size());
+      int t = swap[r1];
+      swap[r1] = swap[r2];
+      swap[r2] = t;
+    }
+  }
   void shake(int S, int R, vector<int>* v) {
     int i = 0;
     for (i = 0; i < S; i++) {
+        srand((unsigned) time(NULL));
         int random = rand() % v->size();
         int numOver = (rand() % (R - 1)) + 1;
 	numOver = (numOver * 2) - R;
@@ -302,5 +314,11 @@ public:
       currentDepth++;
     }
     return (sum/totalNodes);
+  }
+  void reset() {
+    comparisonCount = 0;
+  }
+  int getCount() {
+    return comparisonCount;
   }
   };
