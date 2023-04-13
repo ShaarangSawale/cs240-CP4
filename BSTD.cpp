@@ -10,11 +10,13 @@ class node {
   node* leftChild;
   node* rightChild;
   node* parent;
+  int comparisonCounter;
   node(int t) {
     data = t;
     parent = nullptr;
     leftChild = nullptr;
     rightChild = nullptr;
+    comparisonCounter = 0;
   }
   void printNode() {
     cout << "(" << data << ", ";
@@ -49,6 +51,7 @@ public:
     curr = this->root;
     bool flag = false;
     while(curr != nullptr) {
+      comparisonCounter++;
       if(curr->data > d) {
 	curr = curr->leftChild;
       }
@@ -236,8 +239,22 @@ public:
     }
   }
   void shake(int S, int R, vector<int>* v) {
-    int random = rand() % v->size();
-    int numOver = (rand() % (R - 1)) + 1
+    int i = 0;
+    for (i = 0; i < S; i++) {
+        int random = rand() % v->size();
+        int numOver = (rand() % (R - 1)) + 1;
+	numOver = (numOver * 2) - R;
+        int toMove = v->at(random);
+        v->erase(v->begin() + random);
+	int newLoc = random + numOver;
+	if (newLoc > v->size() - 1) {
+	  newLoc = v->size() - 1;
+	}
+	if (newLoc < 0) {
+	  newLoc = 0;
+	}
+        v->insert(v->begin() + newLoc, toMove);
+    }
   }
   int getHeight(node* curr) {
     int heightLeft = -1;
