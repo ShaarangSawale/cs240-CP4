@@ -17,11 +17,11 @@ int main() {
       }
       cout << endl;
   }
-q  /*
-=======
+
   vector<int> swap {4, 6, 4, 8, 2, 4, 9, 0, 1, 4, 3};
   srand((unsigned) time(NULL));
-  int no_of_swaps = rand() % 10; 
+  int no_of_swaps = rand() % 10;
+  /*
 >>>>>>> Stashed changes
   d->insertVector(&insert);
   //d->removeVector(&remove);
@@ -32,7 +32,6 @@ q  /*
   cout << "Average Depth: " << a << endl;
 <<<<<<< Updated upstream
   */
-=======
 
   cout << "Before Shuffling" << endl;
   for(int i = 0; i <swap.size(); i++) {
