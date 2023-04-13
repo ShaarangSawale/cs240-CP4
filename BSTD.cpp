@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 
 class node {
@@ -233,6 +234,10 @@ public:
       this->printTree(this->root);
       cout << "____" << endl;
     }
+  }
+  void shake(int S, int R, vector<int>* v) {
+    int random = rand() % v->size();
+    int numOver = (rand() % (R - 1)) + 1
   }
   int getHeight(node* curr) {
     int heightLeft = -1;
