@@ -246,6 +246,7 @@ public:
     }
   }
   void shuffle(vector<int> *swap, int s) {
+<<<<<<< HEAD
     int r1;
     int r2;
     int t;
@@ -266,6 +267,11 @@ public:
       }
       cout << endl;
       cout << "next shuffle: " << endl;
+=======
+    srand((unsigned) time(NULL));
+    for (int i = 0; i < s; i++) {
+      int r1 = rand() % (swap->size()-1);
+ 
     }
   }
   void shake(int S, int R, vector<int>* v) {
