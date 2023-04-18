@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <cstdlib>
+#include <random>
 using namespace std;
 int main() {
   BST* d = new BST();
@@ -20,7 +21,7 @@ int main() {
   */
   vector<int> swap {4, 6, 4, 8, 2, 4, 9, 0, 1, 4, 3};
   srand((unsigned) time(NULL));
-  int no_of_swaps = rand() % 10;
+  int no_of_swaps = rand() % 100;
 
   vector<int> shake_vector {5, 6, 3, 7, 5, 24, 16, 74, 53, 67, 49};
   /*

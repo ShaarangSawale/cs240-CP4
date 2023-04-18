@@ -240,10 +240,10 @@ public:
     }
   }
   void shuffle(vector<int> *swap, int s) {
+    srand((unsigned) time(NULL));
     for (int i = 0; i < s; i++) {
-      srand((unsigned) time(NULL));
-      int r1 = rand() % (swap->size());
-      int r2 = rand() % (swap->size());
+      int r1 = rand() % (swap->size()-1);
+      int r2 = rand() % (swap->size()-1);
       int t = swap->at(r1);
       swap->at(r1) = swap->at(r2);
       swap->at(r2) = t;
