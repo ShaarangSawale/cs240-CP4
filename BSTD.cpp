@@ -10,13 +10,11 @@ class node {
   node* leftChild;
   node* rightChild;
   node* parent;
-  int comparisonCounter;
   node(int t) {
     data = t;
     parent = nullptr;
     leftChild = nullptr;
     rightChild = nullptr;
-    comparisonCounter = 0;
   }
   void printNode() {
     cout << "(" << data << ", ";
@@ -43,8 +41,10 @@ class BST {
 public:
   node* root;
   node* finder;
+  int comparisonCounter;
   BST() {
     root = nullptr;
+    comparisonCounter = 0;
   }
    bool find(int d) {
     node *curr;
@@ -242,11 +242,11 @@ public:
   void shuffle(vector<int> *swap, int s) {
     for (int i = 0; i < s; i++) {
       srand((unsigned) time(NULL));
-      int r1 = rand() % (swap.size());
-      int r2 = rand() % (swap.size());
-      int t = swap[r1];
-      swap[r1] = swap[r2];
-      swap[r2] = t;
+      int r1 = rand() % (swap->size());
+      int r2 = rand() % (swap->size());
+      int t = swap->at(r1);
+      swap->at(r1) = swap->at(r2);
+      swap->at(r2) = t;
     }
   }
   void shake(int S, int R, vector<int>* v) {
@@ -316,9 +316,9 @@ public:
     return (sum/totalNodes);
   }
   void reset() {
-    comparisonCount = 0;
+    comparisonCounter = 0;
   }
   int getCount() {
-    return comparisonCount;
+    return comparisonCounter;
   }
   };
