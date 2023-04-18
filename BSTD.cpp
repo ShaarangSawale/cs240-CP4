@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <vector>
 #include <cstdlib>
+#include <random>
 using namespace std;
 
 class node {
@@ -10,16 +11,15 @@ class node {
   node* leftChild;
   node* rightChild;
   node* parent;
-  int comparisonCounter;
   node(int t) {
     data = t;
     parent = nullptr;
     leftChild = nullptr;
     rightChild = nullptr;
-    comparisonCounter = 0;
   }
   void printNode() {
-    cout << "(" << data << ", ";
+    cout << data << endl;
+    /*cout << "(" << data << ", ";
     if (parent != nullptr) {
       cout << parent->data << ", ";
     } else {
@@ -35,7 +35,7 @@ class node {
     } else {
       cout << "null";
     }
-    cout << ")" << endl;
+    cout << ")" << endl;*/
   }
   
 };
@@ -43,8 +43,10 @@ class BST {
 public:
   node* root;
   node* finder;
+  int comparisonCounter;
   BST() {
     root = nullptr;
+    comparisonCounter = 0;
   }
    bool find(int d) {
     node *curr;
@@ -214,20 +216,24 @@ public:
       }
     }
   }
-  void printTree(node* curr) {
+  void printTree(node* curr, int spaces) {
     if (curr->leftChild != nullptr) {
-      printTree(curr->leftChild);
+      printTree(curr->leftChild, spaces + 10);
+    }
+    int i;
+    for (i = 0; i < spaces; i++) {
+      cout << " ";
     }
     curr->printNode();
     if (curr->rightChild != nullptr) {
-      printTree(curr->rightChild);
+      printTree(curr->rightChild, spaces + 10);
     }
   }
   void insertVector(vector<int>* t) {
     int	i = 0;
     for (int i = 0; i < t->size(); i++) {
       insert(t->at(i));
-      this->printTree(this->root);
+      this->printTree(this->root, 0);
       cout << "____" << endl;
     }
   }
@@ -235,26 +241,44 @@ public:
     int i = 0;
     for (int i = 0; i < t->size(); i++) {
       remove(t->at(i));
-      this->printTree(this->root);
+      this->printTree(this->root, 0);
       cout << "____" << endl;
     }
   }
   void shuffle(vector<int> *swap, int s) {
+    int r1;
+    int r2;
+    int t;
+    random_device rd;
+    mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, swap->size());
     for (int i = 0; i < s; i++) {
       srand((unsigned) time(NULL));
-      int r1 = rand() % (swap.size());
-      int r2 = rand() % (swap.size());
-      int t = swap[r1];
-      swap[r1] = swap[r2];
-      swap[r2] = t;
+      r1 = dis(gen) % (swap->size());
+      r2 = dis(gen) % (swap->size());
+      cout << "rand: " << rand() << endl;
+      t = swap->at(r1);
+      swap->at(r1) = swap->at(r2);
+      swap->at(r2) = t;
+
+      for (int j = 0; j < swap->size(); j++) {
+	cout << swap->at(j) << ", ";
+      }
+      cout << endl;
+      cout << "next shuffle: " << endl;
     }
   }
   void shake(int S, int R, vector<int>* v) {
     int i = 0;
+    random_device rd;
+    mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, v->size());
     for (i = 0; i < S; i++) {
         srand((unsigned) time(NULL));
-        int random = rand() % v->size();
-        int numOver = (rand() % (R - 1)) + 1;
+        int random = dis(gen) % v->size();
+	
+	cout << "rand: " << dis(gen) << endl;
+        int numOver = (dis(gen) % (R - 1)) + 1;
 	numOver = (numOver * 2) - R;
         int toMove = v->at(random);
         v->erase(v->begin() + random);
@@ -316,9 +340,9 @@ public:
     return (sum/totalNodes);
   }
   void reset() {
-    comparisonCount = 0;
+    comparisonCounter = 0;
   }
   int getCount() {
-    return comparisonCount;
+    return comparisonCounter;
   }
   };
