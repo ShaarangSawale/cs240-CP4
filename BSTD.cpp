@@ -44,6 +44,7 @@ public:
   node* root;
   node* finder;
   int comparisonCounter;
+  vector<int> BST_Vector = {34, 52, 74, 17, 83, 49, 21, 1, 92, 4, 25, 61};
   BST() {
     root = nullptr;
     comparisonCounter = 0;
@@ -178,7 +179,7 @@ public:
 	//get predicessor to replace
 	node* toReplace = nullptr;
 	toReplace = getPredicessor(finder);
-	cout << "Predicessor " << toReplace->data << endl;
+	//cout << "Predicessor " << toReplace->data << endl;
 	//remove predicessor from its current place on tree
 	if (toReplace->parent->leftChild == toReplace) {
 	  toReplace->parent->leftChild = toReplace->rightChild;//these should be rightChild not leftChild with successor?
@@ -233,65 +234,74 @@ public:
     int	i = 0;
     for (int i = 0; i < t->size(); i++) {
       insert(t->at(i));
-      this->printTree(this->root, 0);
-      cout << "____" << endl;
+      //this->printTree(this->root, 0);
+      //cout << "____" << endl;
     }
   }
   void removeVector(vector<int>* t) {
     int i = 0;
     for (int i = 0; i < t->size(); i++) {
       remove(t->at(i));
-      this->printTree(this->root, 0);
-      cout << "____" << endl;
+      //this->printTree(this->root, 0);
+      //cout << "____" << endl;
     }
   }
-  void shuffle(vector<int> *swap, int s) {
+  void shuffle(int s) {
     int r1;
     int r2;
     int t;
     random_device rd;
     mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, swap->size());
+    std::uniform_int_distribution<> dis(1, BST_Vector.size());
     for (int i = 0; i < s; i++) {
       srand((unsigned) time(NULL));
-      r1 = dis(gen) % (swap->size());
-      r2 = dis(gen) % (swap->size());
-      cout << "rand: " << rand() << endl;
-      t = swap->at(r1);
-      swap->at(r1) = swap->at(r2);
-      swap->at(r2) = t;
-
+      r1 = dis(gen) % (BST_Vector.size());
+      r2 = dis(gen) % (BST_Vector.size());
+      // cout << "rand: " << rand() << endl;
+      t = BST_Vector.at(r1);
+      BST_Vector.at(r1) = BST_Vector.at(r2);
+      BST_Vector.at(r2) = t;
+      /*
       for (int j = 0; j < swap->size(); j++) {
 	cout << swap->at(j) << ", ";
       }
-      cout << endl;
-      cout << "next shuffle: " << endl;
+      */
+      //cout << endl;
+      //cout << "next shuffle: " << endl;
     }
   }
-  void shake(int S, int R, vector<int>* v) {
+  void shake(int S, int R) {
     int i = 0;
     random_device rd;
     mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, v->size());
+    std::uniform_int_distribution<> dis(1, BST_Vector.size());
     for (i = 0; i < S; i++) {
         srand((unsigned) time(NULL));
-        int random = dis(gen) % v->size();
+        int random = dis(gen) % BST_Vector.size();
 	
-	cout << "rand: " << dis(gen) << endl;
+	//cout << "rand: " << dis(gen) << endl;
         int numOver = (dis(gen) % (R - 1)) + 1;
 	numOver = (numOver * 2) - R;
-        int toMove = v->at(random);
-        v->erase(v->begin() + random);
+        int toMove = BST_Vector.at(random);
+        BST_Vector.erase(BST_Vector.begin() + random);
 	int newLoc = random + numOver;
-	if (newLoc > v->size() - 1) {
-	  newLoc = v->size() - 1;
+	if (newLoc > BST_Vector.size() - 1) {
+	  newLoc = BST_Vector.size() - 1;
 	}
 	if (newLoc < 0) {
 	  newLoc = 0;
 	}
-        v->insert(v->begin() + newLoc, toMove);
+        BST_Vector.insert(BST_Vector.begin() + newLoc, toMove);
     }
   }
+
+  void printVector() {
+    for(int i = 0; i < BST_Vector.size(); i++) {
+      cout << BST_Vector[i] << " ";
+    }
+    cout << endl;
+  }
+  
   int getHeight(node* curr) {
     int heightLeft = -1;
     int heightRight = -1;
