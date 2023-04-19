@@ -49,6 +49,17 @@ public:
     root = nullptr;
     comparisonCounter = 0;
   }
+  void insertRandom(int k) {
+    int i;
+    random_device rd;
+    mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, k);
+    int r1 = dis(gen);
+    for (i = 0; i < k; i++) {
+      r1 = dis(gen);
+      BST_Vector.push_back(r1);
+    }
+  }
    bool find(int d) {
     node *curr;
     curr = this->root;
@@ -122,17 +133,21 @@ public:
     this->find(t);
     if (finder != nullptr) {
       if (finder->leftChild == nullptr && finder->rightChild == nullptr) {
+	if (finder != this->root) {
 	if (finder->parent->leftChild == finder) {
 	  finder->parent->leftChild = nullptr;
 	} else {
 	  finder->parent->rightChild = nullptr;
 	}
-	if (finder == this->root) {
-	  this->root = nullptr;
-	}
+ 
 	finder->parent = nullptr;
 	delete finder;
 	finder = nullptr;
+	} else {
+	  delete this->root;
+	  this->root = nullptr;
+	  
+	}
       }
       else if (finder->leftChild == nullptr && finder->rightChild != nullptr) {
 	if (finder != root) { 
@@ -218,6 +233,7 @@ public:
     }
   }
   void printTree(node* curr, int spaces) {
+    if (curr != nullptr) {
     if (curr->leftChild != nullptr) {
       printTree(curr->leftChild, spaces + 10);
     }
@@ -228,6 +244,10 @@ public:
     curr->printNode();
     if (curr->rightChild != nullptr) {
       printTree(curr->rightChild, spaces + 10);
+    }
+  }
+    else {
+      cout << "EMPTY TREE" << endl;
     }
   }
   void insertVector(vector<int>* t) {
@@ -241,6 +261,7 @@ public:
   void removeVector(vector<int>* t) {
     int i = 0;
     for (int i = 0; i < t->size(); i++) {
+      //cout << "removing: " << t->at(i) << endl;
       remove(t->at(i));
       //this->printTree(this->root, 0);
       //cout << "____" << endl;
@@ -306,6 +327,7 @@ public:
     int heightLeft = -1;
     int heightRight = -1;
     int height = -1;
+    if (curr != nullptr) {
     if (curr->leftChild != nullptr) {
       heightLeft = getHeight(curr->leftChild);
     }
@@ -320,6 +342,9 @@ public:
       }
       
       return (height + 1);
+    } else {
+      return -1;
+    }
   }
   double averageDepth() {
     vector<node*> now {this->root};
@@ -328,6 +353,7 @@ public:
     double currentDepth = 0;
     double sum = 0;
     double totalNodes = 0;
+    if (this->root != nullptr) {
     while (now.size() > 0) {
       for (i = 0; i < now.size(); i++) {
 	sum = sum + currentDepth;
@@ -348,6 +374,9 @@ public:
       currentDepth++;
     }
     return (sum/totalNodes);
+    } else {
+      return -1;
+    }
   }
   void reset() {
     comparisonCounter = 0;

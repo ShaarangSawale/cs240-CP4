@@ -12,9 +12,10 @@ int main() {
   vector<int> balanced_remove = {30, 66, 41, 30, 56, 80};
   vector<int> perfect = {40, 25, 101, 17, 32, 73, 205};
   vector<int> perfect_remove = {17, 25, 101, 74, 85};
-
+  f->insertRandom(20);
+  
   srand((unsigned) time(NULL));
-  int no_of_swaps = rand() % 100;
+  int no_of_swaps = (rand() % 100) + 200;
   cout << "Before Shuffling" << endl;
   f->printVector();
   f->shuffle(no_of_swaps);
@@ -30,6 +31,21 @@ int main() {
   cout << "After Shaking" << endl;
   f->printVector();
   cout << endl;
+
+  cout << "Inserting values (empty)" << endl;
+  f->printTree(f->root, 0);
+  cout << "here!" << endl;
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  cout << "find: 3: " << f->find(3) << endl;
+  f->removeVector(&full_remove);
+  cout << "After removing values in a vector" << endl;
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&full);
   
   f->insertVector(&full);
   cout << "Inserting values (full)" << endl;
@@ -43,7 +59,7 @@ int main() {
   cout << "Height: " << f->getHeight(f->root) << endl;
   cout << "Average Depth: " << f->averageDepth() << endl;
   cout << "Number of Comparisons: " << f->getCount() << endl;
-  //d->removeVector(&full);
+  f->removeVector(&full);
   cout << endl;
 
   
@@ -94,6 +110,48 @@ int main() {
   cout << "Number of Comparisons: " << p->getCount() << endl;
   //d->removeVector(&perfect);
 
+  cout << "random BST 1/1: " << endl;
+  f->insertVector(&(f->BST_Vector));
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&perfect_remove);
+  cout << "After removing values in a vector" << endl;
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&(f->BST_Vector));
+  f->shuffle(no_of_swaps);
   
+  cout << "random BST 2/1: " << endl;
+  f->insertVector(&(f->BST_Vector));
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&perfect_remove);
+  cout << "After removing values in a vector" << endl;
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&(f->BST_Vector));
+  f->shuffle(no_of_swaps);
+  
+  cout << "random BST 3/1: " << endl;
+  f->insertVector(&(f->BST_Vector));
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->removeVector(&perfect_remove);
+  cout << "After removing values in a vector" << endl;
+  f->printTree(f->root, 0);
+  cout << "Height: " << f->getHeight(f->root) << endl;
+  cout << "Average Depth: " << f->averageDepth() << endl;
+  cout << "Number of Comparisons: " << f->getCount() << endl;
+  f->BST_Vector.clear();
   return 0;
 };
