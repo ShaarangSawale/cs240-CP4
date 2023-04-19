@@ -23,9 +23,6 @@ int main() {
   int no_of_swaps = rand() % 100;
 
   vector<int> shake_vector {5, 6, 3, 7, 5, 24, 16, 74, 53, 67, 49};
-  /*
->>>>>>> Stashed changes
->>>>>>> a4fe9984414bb09227225ee344f9e7b8fc1f0ec2
   d->insertVector(&insert);
   //d->removeVector(&remove);
   d->printTree(d->root, 0);
@@ -52,7 +49,7 @@ int main() {
     d->insert(bst_numbers[i]);
   }
   cout << "new binary search tree" << endl;
-  d->printTree(d->root);
+  d->printTree(d->root, 0);
 
   cout << "removing numbers 4, 45, 72 from the binary search tree" << endl;
   d->remove(4);
@@ -60,7 +57,7 @@ int main() {
   d->remove(72);
 
   cout << "after removing 4, 45, 72" << endl;
-  d->printTree(d->root);
+  d->printTree(d->root, 0);
 
   cout << "Before Shaking" << endl;
   for(int i = 0; i < shake_vector.size(); i++) {
@@ -76,9 +73,5 @@ int main() {
     cout << shake_vector[i] << " ";
   }
   cout << endl;
-  
-<<<<<<< HEAD
-=======
->>>>>>> a4fe9984414bb09227225ee344f9e7b8fc1f0ec2
   return 0;
 };
