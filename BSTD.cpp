@@ -44,12 +44,14 @@ public:
   node* root;
   node* finder;
   int comparisonCounter;
+  node* t;
   vector<int> BST_Vector = {34, 52, 74, 17, 83, 49, 21, 1, 92, 4, 25, 61};
   BST() {
     root = nullptr;
     comparisonCounter = 0;
   }
   void insertRandom(int k) {
+    
     int i;
     random_device rd;
     mt19937 gen(rd());
@@ -58,6 +60,7 @@ public:
     for (i = 0; i < k; i++) {
       r1 = dis(gen);
       BST_Vector.push_back(r1);
+      //cout << "in insert random: " << r1 << endl;
     }
   }
    bool find(int d) {
@@ -113,7 +116,7 @@ public:
 	  traverse = traverse->leftChild;
 	} else {
 	  r = false;
-	  cout << "can't insert duplicates!: " << t << endl;
+	  //cout << "can't insert duplicates!: " << t << endl;
 	}
       }
     }
@@ -129,6 +132,92 @@ public:
   /*node* getSuccessor(node* curr) {
 
   }*/
+  node* remove(node* root, int key)
+{
+    // base case
+    if (root == nullptr)
+        return root;
+ 
+    // If the key to be deleted is
+    // smaller than the root's
+    // key, then it lies in left subtree
+    if (key < root->data) {
+        root->leftChild = remove(root->leftChild, key);
+	comparisonCounter++;
+    }
+    // If the key to be deleted is
+    // greater than the root's
+    // key, then it lies in right subtree
+    else if (key > root->data) {
+        root->rightChild = remove(root->rightChild, key);
+	comparisonCounter++;
+    }
+    // if key is same as root's key, then This is the node
+    // to be deleted
+    else {
+        // node has no child
+        if (root->leftChild == nullptr && root->rightChild == nullptr)
+            return nullptr;
+ 
+        // node with only one child or no child
+        else if (root->leftChild == nullptr) {
+            node* temp = root->rightChild;
+            delete root;
+            return temp;
+        }
+        else if (root->rightChild == NULL) {
+            node* temp = root->leftChild;
+            delete root;
+            return temp;
+        }
+ 
+        // node with two children: Get the inorder successor
+        // (smallest in the right subtree)
+        node* temp = getPredicessor(root);
+ 
+        // Copy the inorder successor's content to this node
+        root->data = temp->data;
+ 
+        // Delete the inorder successor
+        root->rightChild = remove(root->rightChild, temp->data);
+    }
+    return root;
+}
+ 
+
+  /*
+  void remove(node* node, int key) {
+    t = nullptr;
+    if (!node) {
+        return;
+    }
+    if (key < node->data) {
+        remove(node->leftChild, key);
+	comparisonCounter++;
+    } else if (key > node->data) {
+        remove(node->rightChild, key);
+	comparisonCounter++;
+    } else {
+        // node to be removed has no child or one child
+        if (!node->leftChild) {
+            t = node->rightChild;
+            delete node;
+            node = t;
+        } else if (!node->rightChild) {
+            t = node->leftChild;
+            delete node;
+            node = t;
+        }
+        // node to be removed has two children
+        else {
+            t = getPredicessor(node->rightChild);
+            node->data = t->data;
+            remove(node->rightChild, t->data);
+        }
+    }
+}
+  */
+  /*
   void remove(int t) {
     this->find(t);
     if (finder != nullptr) {
@@ -231,7 +320,7 @@ public:
 	
       }
     }
-  }
+  }*/
   void printTree(node* curr, int spaces) {
     if (curr != nullptr) {
     if (curr->leftChild != nullptr) {
@@ -262,7 +351,7 @@ public:
     int i = 0;
     for (int i = 0; i < t->size(); i++) {
       //cout << "removing: " << t->at(i) << endl;
-      remove(t->at(i));
+      remove(this->root, t->at(i));
       //this->printTree(this->root, 0);
       //cout << "____" << endl;
     }
@@ -383,5 +472,14 @@ public:
   }
   int getCount() {
     return comparisonCounter;
+  }
+
+  void deleteTree(node *node) {
+    if(node == NULL) return;
+
+    deleteTree(node->leftChild);
+    deleteTree(node->rightChild);
+
+    delete node;
   }
   };
